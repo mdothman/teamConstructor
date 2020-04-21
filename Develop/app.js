@@ -6,5 +6,18 @@ const { prompt } = require("inquirer");
 let questions = require("./questions");
 
 prompt(questions).then((answers) => {
-  console.log(answers.welcome);
+  const optionsArr = [answers.intern, answers.engineer, answers.manager];
+
+  let options = optionsArr.filter(function (options) {
+    return options !== undefined;
+  });
+  let data = {
+    name: answers.name,
+    id: answers.id,
+    email: answers.email,
+    role: answers.role,
+    options: options.pop(),
+  };
+
+  console.log(data);
 });
