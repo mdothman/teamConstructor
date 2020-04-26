@@ -1,6 +1,10 @@
 const Engineer = require("./lib/Engineer.js");
 const Intern = require("./lib/Intern.js");
 const Manager = require("./lib/Manager.js");
+const internTemplate = require("./templates/internHTML");
+const engineerTemplate = require("./templates/engineerHTML");
+const mangerTemplate = require("./templates/mangerHTML");
+const html = require("./templates/mainHTML");
 const { prompt } = require("inquirer");
 const questions = require("./questions");
 const fs = require("fs");
@@ -17,18 +21,24 @@ prompt(questions).then((answers) => {
   let options = data.options.filter(isDefined).pop();
   let registration = data.role;
   if (registration === "Intern") {
-    new Intern(data.name, data.id, data.email, options);
+    let employee = new Intern(data.name, data.id, data.email, options);
+    let template = internTemplate(employee);
+    let main = html(template);
+    fs.appendFileSync("./output/index.html", main);
   }
   if (registration === "Engineer") {
-    corporation.push(new Engineer(data.name, data.id, data.email, options));
+    let employee = new Engineer(data.name, data.id, data.email, options);
+    let template = engineerTemplate(employee);
+    let main = html(template);
+    fs.appendFileSync("./output/index.html", main);
   }
   if (registration === "Manager") {
-    corporation.push(new Manager(data.name, data.id, data.email, options));
+    let employee = new Manager(data.name, data.id, data.email, options);
+    let template = mangerTemplate(employee);
+    let main = html(template);
+    fs.appendFileSync("./output/index.html", main);
   }
-
   function isDefined(value) {
     return value !== undefined;
   }
-  console.log(corporation);
-  module.exports = corporation;
 });

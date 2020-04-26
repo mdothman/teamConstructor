@@ -2,7 +2,7 @@ const questionsSchema = [
   {
     type: "confirm",
     name: "welcome",
-    message: "Build your engineering team",
+    message: "Build your engineering team?",
   },
   {
     type: "input",
@@ -98,5 +98,4 @@ const questionsSchema = [
     },
   },
 ];
-
 module.exports = questionsSchema;
